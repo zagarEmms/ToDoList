@@ -6,5 +6,6 @@
     <string name="task4">Preparar reuniones del día</string>
     <string name="task5">Hacer jercicio</string>
     <string name="floatingButton">ADD TASK</string>
+    <string name="taskTitle">task name</string>
 
 </resources>
