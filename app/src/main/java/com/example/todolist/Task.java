@@ -1,15 +1,15 @@
 package com.example.todolist;
 
 public class Task {
-    private String taskTitle;
+    private int taskTitle;
     private boolean taskDone;
 
-    public Task(String taskTitle) {
+    public Task(int taskTitle) {
         this.taskTitle = taskTitle;
         this.taskDone = false;
     }
 
-    public String getTaskTitle() {
+    public int getTaskTitle() {
         return taskTitle;
     }
 
@@ -17,7 +17,7 @@ public class Task {
         return taskDone;
     }
 
-    public void setTaskTitle(String taskTitle) {
+    public void setTaskTitle(int taskTitle) {
         this.taskTitle = taskTitle;
     }
 
