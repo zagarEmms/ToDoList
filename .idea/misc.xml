@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/versa/AndroidStudioProjects/ToDoList/app/src/main/res/drawable/add.xml" value="0.1355" />
+        <entry key="..\:/Users/versa/AndroidStudioProjects/ToDoList/app/src/main/res/layout/list_item_task.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/add.xml" value="0.154" />
         <entry key="app/src/main/res/layout/activity_create_task.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22149221930705326" />
