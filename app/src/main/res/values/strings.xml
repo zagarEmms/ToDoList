@@ -7,5 +7,6 @@
     <string name="task5">Hacer jercicio</string>
     <string name="floatingButton">ADD TASK</string>
     <string name="taskTitle">task name</string>
+    <string name="createTask">CREATE</string>
 
 </resources>

@@ -13,7 +13,7 @@ public class CreateTask extends AppCompatActivity {
 
         intent.putExtra("activityNumber", infoArrayList);
         startActivity(intent);
-        infoArrayList.clear(); //IMPORTANT PER A NETEJAR L'ARRAY I AGAFAR UNA ALTRA ASSIGNATURA
+        infoArrayList.clear();
 
     }*/
 

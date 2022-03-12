@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 public abstract class TaskFragment extends Fragment {
+
     private Task task;
     private EditText titleField;
 
