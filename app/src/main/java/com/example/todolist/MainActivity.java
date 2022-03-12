@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setButton () {
 
+        addButton = (FloatingActionButton) addButton.findViewById(R.id.add_task);
         addButton.setOnClickListener(new View.OnClickListener()
              {
                 @Override
@@ -52,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
             }
         );
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         fillTasks();
         updateUI();
-        //setButton();
+        setButton();
     }
 }
