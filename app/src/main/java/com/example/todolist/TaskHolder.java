@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
 public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private Task taskItem;
@@ -29,6 +31,18 @@ public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickL
         if (taskItem.isTaskDone()) {
             checkButton.setImageResource(R.drawable.check);
         }
+
+
+        checkButton = checkButton.findViewById(R.id.checkTask);
+        checkButton.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     checkButton.setImageResource(R.drawable.check);
+                 }
+             }
+        );
+
+
     }
 
 

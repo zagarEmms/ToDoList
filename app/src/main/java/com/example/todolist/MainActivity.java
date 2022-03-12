@@ -9,14 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Task> taskArrayList = new ArrayList<Task>();
-    private FloatingActionButton addButton;
-    private ListView list;
     private TaskAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -43,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setButton () {
 
-        addButton = (FloatingActionButton) addButton.findViewById(R.id.add_task);
-        addButton.setOnClickListener(new View.OnClickListener()
-             {
+        ExtendedFloatingActionButton addButton = findViewById(R.id.add_task);
+        addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     changeActivity();
