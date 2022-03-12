@@ -1,6 +1,7 @@
 package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         taskArrayList.add(new Task(R.string.task3));
         taskArrayList.add(new Task(R.string.task4));
         taskArrayList.add(new Task(R.string.task5));
-
     }
 
     private void changeActivity () {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        adapter = new TaskAdapter(taskArrayList);
+        adapter = new TaskAdapter(taskArrayList, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -59,8 +59,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         fillTasks();
         updateUI();
-        setButton();
+        //setButton();
     }
 }
