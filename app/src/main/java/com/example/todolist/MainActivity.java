@@ -1,6 +1,8 @@
 package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Task> taskArrayList = new ArrayList<Task>();
     private FloatingActionButton addButton;
     private ListView list;
+    private TaskAdapter adapter;
+    private RecyclerView recyclerView;
 
     private void fillTasks () {
 
@@ -32,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void updateUI() {
+        adapter = new TaskAdapter(taskArrayList);
+        recyclerView.setAdapter(adapter);
+    }
+
     private void setButton () {
 
         addButton.setOnClickListener(new View.OnClickListener()
@@ -44,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fillTasks();
+        updateUI();
         setButton();
     }
 }

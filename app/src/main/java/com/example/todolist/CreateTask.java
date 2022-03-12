@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class CreateTask extends AppCompatActivity {
 
-    private void changeActivity () {
+    /*private void changeActivity () {
 
         Intent intent = new Intent(this, CreateTask.class);
 
@@ -15,7 +15,7 @@ public class CreateTask extends AppCompatActivity {
         startActivity(intent);
         infoArrayList.clear(); //IMPORTANT PER A NETEJAR L'ARRAY I AGAFAR UNA ALTRA ASSIGNATURA
 
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
