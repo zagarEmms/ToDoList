@@ -9,26 +9,18 @@
     android:orientation="vertical"
     android:background="#7C7C7C">
 
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="com.example.todolist.TaskFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_height="300dp"
-        android:layout_width="300dp"
-        android:text="pito"
-        android:textSize="50sp"/>
-
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5"
         android:background="#7C7C7C"
         android:orientation="vertical">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.example.todolist.TaskFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add_task_symbol"

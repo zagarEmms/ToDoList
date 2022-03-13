@@ -8,5 +8,7 @@
     <string name="floatingButton">ADD TASK</string>
     <string name="taskTitle">task name</string>
     <string name="createTask">CREATE</string>
+    <string name="hint">task name</string>
+    <string name="title">TASK TITLE:</string>
 
 </resources>

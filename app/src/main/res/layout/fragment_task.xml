@@ -7,20 +7,29 @@
     android:gravity="center"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="#373636">
+    android:background="#E8E6E6" >
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
-        android:background="#FFFFFF"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="15sp"
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/add_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="50sp"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/hint"
+            android:padding="10dp"
+            android:layout_marginTop="40dp"/>
 
     </FrameLayout>
 
