@@ -25,7 +25,7 @@
             android:id="@+id/checkTask"
             android:layout_height="50dp"
             android:layout_width="50dp"
-            android:backgroundTint="#B6B6B6"/>
+            android:background="@drawable/border"/>
     </FrameLayout>
 
 
