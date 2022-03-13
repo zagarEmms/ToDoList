@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
-
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private void changeActivity () {
 
         Intent intent = new Intent(this, CreateTask.class);
+        Bundle args = new Bundle();
+        args.putSerializable("ARRAYLIST",(Serializable) taskArrayList);
+        intent.putExtra("BUNDLE",args);
         startActivity(intent);
 
     }
@@ -61,7 +63,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        fillTasks();
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        taskArrayList = (ArrayList<Task>) args.getSerializable("ARRAYLIST");
+
+        if (taskArrayList == null) {
+            fillTasks();
+        }
+
         updateUI();
         setButton();
     }
