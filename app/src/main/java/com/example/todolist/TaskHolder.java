@@ -11,7 +11,7 @@ public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     private Task taskItem;
     private TextView task_tile;
-    private ImageButton checkButton;
+    public ImageButton checkButton;
 
     public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
         super(inflater.inflate(R.layout.list_item_task, parent, false));
@@ -25,27 +25,18 @@ public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickL
     public void bind (Task task) {
         taskItem = task;
         task_tile.setText(taskItem.getTaskTitle());
+
         if (taskItem.isTaskDone()) {
             checkButton.setImageResource(R.drawable.check);
         }
 
-
-        checkButton = checkButton.findViewById(R.id.checkTask);
-        checkButton.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View view) {
-                     checkButton.setImageResource(R.drawable.check);
-                     taskItem.setTaskDone();
-                 }
-             }
-        );
     }
-
 
     @Override
     public void onClick(View view) {
         taskItem.setTaskDone();
     }
+
 
 
 }

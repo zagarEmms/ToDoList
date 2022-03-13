@@ -1,6 +1,9 @@
 package com.example.todolist;
 
-public class Task {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Task implements Parcelable {
 
     private String taskTitle;
     private boolean taskDone;
@@ -9,6 +12,23 @@ public class Task {
         this.taskTitle = taskTitle;
         this.taskDone = false;
     }
+
+    protected Task(Parcel in) {
+        taskTitle = in.readString();
+        taskDone = in.readByte() != 0;
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 
     public String getTaskTitle() {
         return taskTitle;
@@ -20,6 +40,17 @@ public class Task {
 
     public void setTaskDone() {
         this.taskDone = true;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(taskTitle);
+        parcel.writeByte((byte) (taskDone ? 1 : 0));
     }
 }
 

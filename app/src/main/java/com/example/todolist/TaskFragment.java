@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -24,29 +26,24 @@ public class TaskFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public String returnTaskTitle () {
+        Log.d("myTag", "list" + titleField);
+        return titleField.getText().toString();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        titleField = (EditText) getView().findViewById(R.id.add_name);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_task, container, false);
 
-        titleField = (EditText) v.findViewById(R.id.add_name);
-        titleField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                titleField.setText(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
         return v;
     }
+
 }

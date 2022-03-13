@@ -1,8 +1,11 @@
 package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -12,13 +15,14 @@ import java.util.ArrayList;
 public class CreateTask extends AppCompatActivity {
 
     private ArrayList<Task> taskArrayList = new ArrayList<Task>();
+    TaskFragment tf = new TaskFragment();
 
     private void changeActivity () {
 
-        Intent intent = new Intent(this, CreateTask.class);
-        Bundle args = new Bundle();
-        args.putSerializable("ARRAYLIST",(Serializable) taskArrayList);
-        intent.putExtra("BUNDLE",args);
+        Intent intent = new Intent(this, MainActivity.class);
+
+        intent.putExtra("ARRAYLIST", taskArrayList);
+
         startActivity(intent);
 
     }
@@ -26,13 +30,10 @@ public class CreateTask extends AppCompatActivity {
     private void setButton () {
 
         ExtendedFloatingActionButton addButton = findViewById(R.id.add_task_symbol);
-        addButton.setOnClickListener(new View.OnClickListener()
-             {
-                 @Override
-                 public void onClick(View view) {
-                     changeActivity();
-                 }
-             }
+        addButton.setOnClickListener(view -> {
+            taskArrayList.add(new Task(tf.returnTaskTitle()));
+            changeActivity();
+        }
         );
     }
 
@@ -41,13 +42,11 @@ public class CreateTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
 
-        Intent intent = getIntent();
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        taskArrayList = (ArrayList<Task>) args.getSerializable("ARRAYLIST");
+        taskArrayList = getIntent().getParcelableArrayListExtra("ARRAYLIST");
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragmentContainerView, TaskFragment.class, null)
+                .add(R.id.fragmentContainerView, tf, null)
                 .commit();
 
         setButton();

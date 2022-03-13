@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Task> taskArrayList = new ArrayList<Task>();
     private TaskAdapter adapter;
     private RecyclerView recyclerView;
+    private ArrayList<Task> taskArrayList = new ArrayList<Task>();
 
     private void fillTasks () {
         taskArrayList.add(new Task(getString(R.string.task1)));
@@ -29,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private void changeActivity () {
 
         Intent intent = new Intent(this, CreateTask.class);
-        Bundle args = new Bundle();
-        args.putSerializable("ARRAYLIST",(Serializable) taskArrayList);
-        intent.putExtra("BUNDLE",args);
+
+        intent.putExtra("ARRAYLIST", taskArrayList);
+
         startActivity(intent);
 
     }
@@ -58,17 +59,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (getIntent().getExtras() != null) {
+            taskArrayList = getIntent().getParcelableArrayListExtra("ARRAYLIST");
+        } else {
+            fillTasks();
+        }
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        Intent intent = getIntent();
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        taskArrayList = (ArrayList<Task>) args.getSerializable("ARRAYLIST");
-
-        if (taskArrayList == null) {
-            fillTasks();
-        }
 
         updateUI();
         setButton();
