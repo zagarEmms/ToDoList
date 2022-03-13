@@ -19,12 +19,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private void fillTasks () {
-
-        taskArrayList.add(new Task(R.string.task1));
-        taskArrayList.add(new Task(R.string.task2));
-        taskArrayList.add(new Task(R.string.task3));
-        taskArrayList.add(new Task(R.string.task4));
-        taskArrayList.add(new Task(R.string.task5));
+        taskArrayList.add(new Task(getString(R.string.task1)));
+        taskArrayList.add(new Task(getString(R.string.task2)));
+        taskArrayList.add(new Task(getString(R.string.task3)));
+        taskArrayList.add(new Task(getString(R.string.task4)));
+        taskArrayList.add(new Task(getString(R.string.task5)));
     }
 
     private void changeActivity () {

@@ -5,10 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -38,11 +35,10 @@ public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickL
                  @Override
                  public void onClick(View view) {
                      checkButton.setImageResource(R.drawable.check);
+                     taskItem.setTaskDone();
                  }
              }
         );
-
-
     }
 
 

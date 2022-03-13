@@ -1,24 +1,21 @@
 package com.example.todolist;
 
 public class Task {
-    private int taskTitle;
+
+    private String taskTitle;
     private boolean taskDone;
 
-    public Task(int taskTitle) {
+    public Task(String taskTitle) {
         this.taskTitle = taskTitle;
         this.taskDone = false;
     }
 
-    public int getTaskTitle() {
+    public String getTaskTitle() {
         return taskTitle;
     }
 
     public boolean isTaskDone() {
         return taskDone;
-    }
-
-    public void setTaskTitle(int taskTitle) {
-        this.taskTitle = taskTitle;
     }
 
     public void setTaskDone() {
