@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public abstract class CreateTask extends AppCompatActivity {
+public class CreateTask extends AppCompatActivity {
 
-    private ExtendedFloatingActionButton addButton;
     private String taskTitle;
+
+    //protected Fragment createFragment();
 
     private void changeActivity () {
 
@@ -27,7 +27,7 @@ public abstract class CreateTask extends AppCompatActivity {
 
     private void setButton () {
 
-        addButton = (ExtendedFloatingActionButton) addButton.findViewById(R.id.add_task);
+        ExtendedFloatingActionButton addButton = findViewById(R.id.add_task_symbol);
         addButton.setOnClickListener(new View.OnClickListener()
              {
                  @Override
@@ -38,22 +38,20 @@ public abstract class CreateTask extends AppCompatActivity {
         );
     }
 
-    protected abstract Fragment createFragment();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentContainerView);
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentContainerView);*/
 
-        if (fragment == null) {
-            fragment = createFragment();
-            fragmentManager.beginTransaction()
-                .add(R.id.fragmentContainerView, fragment)
+
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragmentContainerView, TaskFragment.class, null)
                 .commit();
-        }
+
 
         setButton();
 

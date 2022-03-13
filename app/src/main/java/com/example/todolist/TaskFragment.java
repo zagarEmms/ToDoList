@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-public abstract class TaskFragment extends Fragment {
+public class TaskFragment extends Fragment {
 
     private EditText titleField;
 
@@ -29,7 +29,7 @@ public abstract class TaskFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_task, container, false);
 
-        //titleField = (EditText) v.findViewById(R.id.add_name);
+        titleField = (EditText) v.findViewById(R.id.add_name);
         titleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
