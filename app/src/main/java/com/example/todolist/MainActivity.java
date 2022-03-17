@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private void changeActivityCreate () {
 
         Intent intent = new Intent(this, CreateTask.class);
-        intent.putExtra("ARRAYLIST", taskArrayList);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+        //startActivity(intent);
 
     }
 
@@ -69,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
 
-            if (getIntent().getExtras() != null) {
+            /*if (getIntent().getExtras() != null) {
                 taskArrayList.add(new Task (getIntent().getStringExtra("TaskName")));
-            }
+            }*/
         } else {
             fillTasks();
         }
@@ -90,4 +91,16 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putParcelableArrayList("ARRAYLIST", taskArrayList);
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                taskArrayList.add(new Task ( data.getStringExtra("result")));
+            }
+        }
+    }
+
 }

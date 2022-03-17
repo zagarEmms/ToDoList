@@ -3,6 +3,7 @@ package com.example.todolist;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,9 +20,14 @@ public class CreateTask extends AppCompatActivity {
 
     private void changeActivity () {
 
-        Intent intent = new Intent(this, MainActivity.class);
+        /*Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("TaskName", taskName);
-        startActivity(intent);
+        startActivity(intent);*/
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",taskName);
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
 
     }
 
