@@ -10,5 +10,9 @@
     <string name="createTask">CREATE</string>
     <string name="hint">task name</string>
     <string name="title">TASK TITLE:</string>
+    <string name="editTask">SAVE</string>
+    <string name="newTitle">NEW TASK TITLE:</string>
+
+
 
 </resources>

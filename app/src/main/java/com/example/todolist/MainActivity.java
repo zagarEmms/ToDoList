@@ -1,11 +1,13 @@
 package com.example.todolist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -27,12 +29,17 @@ public class MainActivity extends AppCompatActivity {
         taskArrayList.add(new Task(getString(R.string.task5)));
     }
 
-    private void changeActivity () {
+    private void changeActivityCreate () {
 
         Intent intent = new Intent(this, CreateTask.class);
-
         intent.putExtra("ARRAYLIST", taskArrayList);
+        startActivity(intent);
 
+    }
+
+    private void changeActivityEdit () {
+
+        Intent intent = new Intent(this, EditActivity.class);
         startActivity(intent);
 
     }
@@ -48,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    changeActivity();
+                    changeActivityCreate();
                 }
             }
         );
@@ -59,8 +66,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (getIntent().getExtras() != null) {
-            taskArrayList = getIntent().getParcelableArrayListExtra("ARRAYLIST");
+        if (savedInstanceState != null) {
+            taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+
+            if (getIntent().getExtras() != null) {
+                taskArrayList.add(new Task (getIntent().getStringExtra("TaskName")));
+            }
         } else {
             fillTasks();
         }
@@ -71,5 +82,12 @@ public class MainActivity extends AppCompatActivity {
 
         updateUI();
         setButton();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putParcelableArrayList("ARRAYLIST", taskArrayList);
+
     }
 }

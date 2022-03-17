@@ -14,15 +14,13 @@ import java.util.ArrayList;
 
 public class CreateTask extends AppCompatActivity {
 
-    private ArrayList<Task> taskArrayList = new ArrayList<Task>();
+    private String taskName;
     TaskFragment tf = new TaskFragment();
 
     private void changeActivity () {
 
         Intent intent = new Intent(this, MainActivity.class);
-
-        intent.putExtra("ARRAYLIST", taskArrayList);
-
+        intent.putExtra("TaskName", taskName);
         startActivity(intent);
 
     }
@@ -31,7 +29,7 @@ public class CreateTask extends AppCompatActivity {
 
         ExtendedFloatingActionButton addButton = findViewById(R.id.add_task_symbol);
         addButton.setOnClickListener(view -> {
-            taskArrayList.add(new Task(tf.returnTaskTitle()));
+            taskName = tf.returnTaskTitle();
             changeActivity();
         }
         );
@@ -41,8 +39,6 @@ public class CreateTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
-
-        taskArrayList = getIntent().getParcelableArrayListExtra("ARRAYLIST");
 
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
