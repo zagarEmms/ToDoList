@@ -1,6 +1,6 @@
 package com.example.todolist;
 
-import androidx.annotation.NonNull;
+import  androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import androidx.activity.result.ActivityResult;
@@ -19,7 +22,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
 
     private TaskAdapter adapter;
     private RecyclerView recyclerView;
@@ -41,12 +44,37 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
+    private void saveTasks () {
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARE", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String tasksString = gson.toJson(taskArrayList);
+        editor.putString("TASKS", tasksString);
+        editor.apply();
+        Log.i("save","Saving: " + tasksString);
+    }
+
     private void fillTasks () {
-        taskArrayList.add(new Task(getString(R.string.task1)));
-        taskArrayList.add(new Task(getString(R.string.task2)));
-        taskArrayList.add(new Task(getString(R.string.task3)));
-        taskArrayList.add(new Task(getString(R.string.task4)));
-        taskArrayList.add(new Task(getString(R.string.task5)));
+
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARE", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String tasksString = sharedPreferences.getString("TASKS", null);
+        Log.i("save","Getting: " + tasksString);
+
+        if (tasksString == null) {
+
+            taskArrayList.add(new Task(getString(R.string.task1)));
+            taskArrayList.add(new Task(getString(R.string.task2)));
+            taskArrayList.add(new Task(getString(R.string.task3)));
+            taskArrayList.add(new Task(getString(R.string.task4)));
+            taskArrayList.add(new Task(getString(R.string.task5)));
+
+        } else {
+
+            Type type = new TypeToken<ArrayList<Task>>() {}.getType();
+            this.taskArrayList = gson.fromJson(tasksString, type);
+
+        }
     }
 
     private void changeActivityCreate () {
@@ -55,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         //startActivityForResult(intent, 1);
         //startActivity(intent);
 
+        saveTasks();
         Intent intent = new Intent(this, CreateTask.class);
         startForResult.launch(intent);
 
@@ -95,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("llista","onCreate");
         } else {
             this.taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+            saveTasks();
             Log.i("llista","ELSE");
 
             //taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
@@ -104,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        saveTasks();
         updateUI();
         setButton();
     }
