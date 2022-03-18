@@ -4,38 +4,37 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import java.util.ArrayList;
 
-public class EditTask extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity {
 
     private String taskName;
     private EditText titleField;
-    private Button button;
 
 
     private void changeActivity () {
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("ARRAYLIST", taskArrayList);
-        startActivity(intent);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",taskName);
+
+        setResult(RESULT_OK,returnIntent);
 
         finish();
-
     }
 
     private void setButton () {
 
         ExtendedFloatingActionButton addButton = findViewById(R.id.add_task_symbol);
         addButton.setOnClickListener(view -> {
-            titleField = (EditText) findViewById(R.id.add_name);
-                    //taskArrayList.add(new Task(titleField.getText().toString()));
+             titleField = (EditText) findViewById(R.id.add_name);
+             taskName = titleField.getText().toString();
+
+            //taskArrayList.add(new Task(titleField.getText().toString()));
                     changeActivity();
-                }
+            }
         );
     }
 
