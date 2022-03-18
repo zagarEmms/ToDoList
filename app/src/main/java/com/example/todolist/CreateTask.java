@@ -25,7 +25,6 @@ public class CreateTask extends AppCompatActivity {
         intent.putExtra("TaskName", taskName);
         startActivity(intent);*/
 
-        Log.i("llista","new Task");
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result",taskName);
 

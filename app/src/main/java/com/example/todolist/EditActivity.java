@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 public class EditActivity extends AppCompatActivity {
 
-    private ArrayList<Task> taskArrayList = new ArrayList<Task>();
+    private String taskName;
     private EditText titleField;
 
 
     private void changeActivity () {
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("ARRAYLIST", taskArrayList);
+        //intent.putExtra("ARRAYLIST", taskArrayList);
         startActivity(intent);
 
     }
@@ -28,7 +28,7 @@ public class EditActivity extends AppCompatActivity {
         ExtendedFloatingActionButton addButton = findViewById(R.id.add_task_symbol);
         addButton.setOnClickListener(view -> {
             titleField = (EditText) findViewById(R.id.add_name);
-            taskArrayList.add(new Task(titleField.getText().toString()));
+            //taskArrayList.add(new Task(titleField.getText().toString()));
                     changeActivity();
                 }
         );
@@ -39,7 +39,7 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        taskArrayList = getIntent().getParcelableArrayListExtra("ARRAYLIST");
+        //taskArrayList = getIntent().getParcelableArrayListExtra("ARRAYLIST");
         setButton();
 
     }

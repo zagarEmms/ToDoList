@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -36,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
             if (result != null && result.getResultCode() == RESULT_OK) {
                 if (result.getData() != null && result.getData().getStringExtra("result") != null) {
                     taskArrayList.add(new Task (result.getData().getStringExtra("result")));
-                    Log.i("llista","added "+taskArrayList.get(taskArrayList.size()-1).getTaskTitle());
-                    Log.i("llista","previous "+taskArrayList.get(taskArrayList.size()-2).getTaskTitle());
+                    updateUI();
                 }
             }
         }
@@ -96,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
             fillTasks();
             Log.i("llista","onCreate");
         } else {
-            taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+            this.taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+            Log.i("llista","ELSE");
+
             //taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
         }
 
@@ -109,10 +109,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
+    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putParcelableArrayList("ARRAYLIST", taskArrayList);
+        Log.i("llista","last " + taskArrayList.get(taskArrayList.size()-1).getTaskTitle());
         Log.i("llista","savedInstanceSAVED");
+
+    }
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
 
     }
 
@@ -141,4 +149,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }*/
 
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+    }
 }
