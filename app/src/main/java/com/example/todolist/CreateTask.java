@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.LogRecord;
 
 public class CreateTask extends AppCompatActivity {
 
@@ -24,9 +25,12 @@ public class CreateTask extends AppCompatActivity {
         intent.putExtra("TaskName", taskName);
         startActivity(intent);*/
 
+        Log.i("llista","new Task");
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result",taskName);
-        setResult(Activity.RESULT_OK,returnIntent);
+
+        setResult(RESULT_OK,returnIntent);
+
         finish();
 
     }

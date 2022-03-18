@@ -27,7 +27,6 @@ public class TaskFragment extends Fragment {
     }
 
     public String returnTaskTitle () {
-        Log.d("myTag", "list" + titleField);
         return titleField.getText().toString();
     }
 
