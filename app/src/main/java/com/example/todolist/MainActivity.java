@@ -79,25 +79,31 @@ public class  MainActivity extends AppCompatActivity {
 
     private void changeActivityCreate () {
 
-        //Intent intent = new Intent(this, CreateTask.class);
-        //startActivityForResult(intent, 1);
-        //startActivity(intent);
-
         Intent intent = new Intent(this, CreateTask.class);
         startForResult.launch(intent);
 
     }
 
 
-    private void changeActivityEdit () {
+    public void changeEditActivity(int position) {
 
-        Intent intent = new Intent(this, EditActivity.class);
+        Intent intent = new Intent(this, EditTask.class);
+        intent.putExtra("position",position);
         startActivity(intent);
 
     }
 
+    public interface MyOnClickListener {
+        void onClick();
+    }
+
     private void updateUI() {
-        adapter = new TaskAdapter(taskArrayList, this);
+        adapter = new TaskAdapter(taskArrayList, this, new MyOnClickListener(){
+            @Override
+            public void onClick() {
+
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 

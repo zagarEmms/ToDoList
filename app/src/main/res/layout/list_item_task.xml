@@ -26,6 +26,15 @@
             android:layout_height="50dp"
             android:layout_width="50dp"
             android:background="@drawable/border"/>
+
+        <ImageButton
+            android:id="@+id/editTask"
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="60dp"
+
+            />
     </FrameLayout>
 
 

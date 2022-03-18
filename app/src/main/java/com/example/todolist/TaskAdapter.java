@@ -1,6 +1,5 @@
 package com.example.todolist;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,13 @@ import java.util.ArrayList;
 public class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
 
     private ArrayList<Task> taskArrayList = new ArrayList<>();
-    private Context context;
+    private MainActivity activity;
+    private MainActivity.MyOnClickListener listener;
 
-    public TaskAdapter(ArrayList<Task> taskArrayList, Context context) {
+    public TaskAdapter(ArrayList<Task> taskArrayList, MainActivity activity, MainActivity.MyOnClickListener myOnClickListener) {
         this.taskArrayList = taskArrayList;
-        this.context = context;
+        this.activity = activity;
+        this.listener = myOnClickListener;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
         Task task = taskArrayList.get(position);
         final int i = position;
 
-        holder.bind(task);
+        holder.bind(task, activity, position);
 
         holder.checkButton = holder.checkButton.findViewById(R.id.checkTask);
         holder.checkButton.setOnClickListener(new View.OnClickListener() {
