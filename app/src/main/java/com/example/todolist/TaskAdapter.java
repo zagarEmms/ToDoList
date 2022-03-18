@@ -21,7 +21,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
     @Override
     public TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return new TaskHolder(layoutInflater, parent);
+        return new TaskHolder(layoutInflater, parent, listener);
     }
 
     @Override
@@ -41,6 +41,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
                }
            }
         );
+    }
+
+    public void setListener(MainActivity.MyOnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override

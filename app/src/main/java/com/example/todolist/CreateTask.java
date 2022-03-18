@@ -21,10 +21,6 @@ public class CreateTask extends AppCompatActivity {
 
     private void changeActivity () {
 
-        /*Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("TaskName", taskName);
-        startActivity(intent);*/
-
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result",taskName);
 
