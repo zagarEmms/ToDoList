@@ -83,7 +83,6 @@ public class  MainActivity extends AppCompatActivity {
         //startActivityForResult(intent, 1);
         //startActivity(intent);
 
-        saveTasks();
         Intent intent = new Intent(this, CreateTask.class);
         startForResult.launch(intent);
 
@@ -124,7 +123,6 @@ public class  MainActivity extends AppCompatActivity {
             Log.i("llista","onCreate");
         } else {
             this.taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
-            saveTasks();
             Log.i("llista","ELSE");
 
             //taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
@@ -134,7 +132,6 @@ public class  MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        saveTasks();
         updateUI();
         setButton();
     }
@@ -152,6 +149,7 @@ public class  MainActivity extends AppCompatActivity {
     protected void onPause() {
 
         super.onPause();
+        saveTasks();
 
     }
 
