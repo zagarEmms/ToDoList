@@ -7,13 +7,13 @@
     android:gravity="center"
     tools:context=".CreateTask"
     android:orientation="vertical"
-    android:background="#CFCECE">
+    android:background="#FFECECEC">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5"
-        android:background="#CFCECE"
+        android:background="#FFECECEC"
         android:orientation="vertical">
 
         <androidx.fragment.app.FragmentContainerView

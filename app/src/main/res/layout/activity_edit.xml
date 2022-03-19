@@ -7,13 +7,13 @@
     android:gravity="center"
     tools:context=".EditActivity"
     android:orientation="vertical"
-    android:background="#CFCECE">
+    android:background="#FFECECEC">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5"
-        android:background="#C6C5C5"
+        android:background="#FFECECEC"
         android:orientation="vertical">
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="@string/newTitle"
             android:textSize="15sp"
-            android:padding="10dp" />
+            android:padding="20dp" />
 
         <EditText
             android:id="@+id/add_name"
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint"
-            android:padding="10dp"
+            android:padding="20dp"
             android:layout_marginTop="40dp"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

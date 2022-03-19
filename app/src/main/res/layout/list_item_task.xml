@@ -7,32 +7,34 @@
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
         <TextView
+            android:textAlignment="center"
             android:id="@+id/task_title"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textSize="15sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
+
     </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginEnd="70dp"
+            android:layout_gravity="end"
+            android:id="@+id/editIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/edit"/>
         <ImageButton
             android:layout_gravity="end"
             android:id="@+id/checkTask"
             android:layout_height="50dp"
             android:layout_width="50dp"
-            android:background="@drawable/border"/>
-        <ImageView
-            android:id="@+id/editIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="250dp"
-            android:src="@drawable/edit"/>
+            android:background="@drawable/border" />
     </FrameLayout>
-
 
 </LinearLayout>
