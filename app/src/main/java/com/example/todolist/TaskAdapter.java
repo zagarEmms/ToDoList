@@ -10,12 +10,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
 
     private ArrayList<Task> taskArrayList = new ArrayList<>();
     private MainActivity activity;
-    private MainActivity.MyOnClickListener listener;
+    private MyOnClickListener listener;
 
-    public TaskAdapter(ArrayList<Task> taskArrayList, MainActivity activity, MainActivity.MyOnClickListener myOnClickListener) {
+    public interface MyOnClickListener {
+        void myOnClick(View view, int position);
+    }
+
+    public TaskAdapter(ArrayList<Task> taskArrayList, MainActivity activity) {
         this.taskArrayList = taskArrayList;
         this.activity = activity;
-        this.listener = myOnClickListener;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
         );
     }
 
-    public void setListener(MainActivity.MyOnClickListener listener) {
+    public void setListener(MyOnClickListener listener) {
         this.listener = listener;
     }
 

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
-public class  MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOnClickListener {
 
     private TaskAdapter adapter;
     private RecyclerView recyclerView;
@@ -31,8 +31,15 @@ public class  MainActivity extends AppCompatActivity {
     // cbk is received as an intent with the the result from the activity
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result != null && result.getResultCode() == RESULT_OK) {
+            //start activity ror result to create a NEW task
             if (result.getData() != null && result.getData().getStringExtra("result") != null) {
                 taskArrayList.add(new Task (result.getData().getStringExtra("result")));
+                updateUI();
+
+            } else if (result.getData() != null && result.getData().getStringArrayListExtra("newName") != null) {
+                //start activity ror result to EDIT task
+                //an arrayList from the editActivity with the position and new name is received and updated to the taskArrayList
+                taskArrayList.get(Integer.parseInt(String.valueOf(result.getData().getStringArrayListExtra("newName").get(0)))).editTaskTitle (result.getData().getStringArrayListExtra("newName").get(1));
                 updateUI();
             }
         }
@@ -78,23 +85,24 @@ public class  MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void changeEditActivity(int position) {
+    @Override
+    public void myOnClick(View view, int position) {
+        ArrayList<String> changingTaskInfo = new ArrayList<>();
+        changingTaskInfo.add(String.valueOf(position));
+        changingTaskInfo.add(taskArrayList.get(position).getTaskTitle());
 
         Intent intent = new Intent(this, EditActivity.class);
-        intent.putExtra("position",position);
-        startActivity(intent);
 
-    }
+        intent.putStringArrayListExtra("newName",changingTaskInfo);
 
-    public interface MyOnClickListener {
-        void myOnClick(View view, int position);
+        startForResult.launch(intent);
     }
 
     private void updateUI() {
-        adapter = new TaskAdapter(taskArrayList, this, );
+        adapter = new TaskAdapter(taskArrayList, this);
         recyclerView.setAdapter(adapter);
-        adapter.setListener(MyOnClickListener);
+        Log.i("adapter","adapter created");
+        adapter.setListener(this);
 
     }
 
@@ -167,6 +175,5 @@ public class  MainActivity extends AppCompatActivity {
         saveTasks();
 
     }
-
 
 }

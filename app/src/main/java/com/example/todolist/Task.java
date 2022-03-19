@@ -30,6 +30,10 @@ public class Task implements Parcelable {
         }
     };
 
+    public void editTaskTitle(String newTitle){
+        this.taskTitle = newTitle;
+    }
+
     public String getTaskTitle() {
         return taskTitle;
     }
@@ -52,6 +56,7 @@ public class Task implements Parcelable {
         parcel.writeString(taskTitle);
         parcel.writeByte((byte) (taskDone ? 1 : 0));
     }
+
 }
 
 

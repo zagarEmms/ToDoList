@@ -13,12 +13,13 @@ public class EditActivity extends AppCompatActivity {
 
     private String taskName;
     private EditText titleField;
+    private ArrayList <String> infoArray = new ArrayList<>();
 
 
     private void changeActivity () {
 
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",taskName);
+        returnIntent.putStringArrayListExtra("newName",infoArray);
 
         setResult(RESULT_OK,returnIntent);
 
@@ -31,9 +32,10 @@ public class EditActivity extends AppCompatActivity {
         addButton.setOnClickListener(view -> {
              titleField = (EditText) findViewById(R.id.add_name);
              taskName = titleField.getText().toString();
+             infoArray.add(1, taskName);
 
             //taskArrayList.add(new Task(titleField.getText().toString()));
-                    changeActivity();
+                changeActivity();
             }
         );
     }
@@ -43,6 +45,7 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        infoArray = getIntent().getStringArrayListExtra("newName");
         //taskArrayList = getIntent().getParcelableArrayListExtra("ARRAYLIST");
         setButton();
 
