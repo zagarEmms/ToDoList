@@ -43,7 +43,7 @@ public class Task implements Parcelable {
     }
 
     public void setTaskDone() {
-        this.taskDone = true;
+        this.taskDone = !this.taskDone;
     }
 
     @Override
