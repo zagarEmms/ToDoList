@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOnClickListener {
 
     private TaskAdapter adapter;
@@ -132,6 +136,18 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
 
             //taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
         }
+
+        APIclient.getInstance().getTodo(1, new Callback<JsonPlaceholderAPI>() {
+            @Override
+            public void onResponse(Call<JsonPlaceholderAPI> call, Response<JsonPlaceholderAPI> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonPlaceholderAPI> call, Throwable t) {
+
+            }
+        });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
