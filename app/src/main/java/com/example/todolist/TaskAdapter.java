@@ -38,7 +38,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
         holder.checkButton.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   if (task.isTaskDone()) {
+                   if (task.isCompleted()) {
                        holder.checkButton.setImageResource(0);
                    } else {
                        holder.checkButton.setImageResource(R.drawable.check);

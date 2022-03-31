@@ -1,5 +1,7 @@
 package com.example.todolist;
 
+import java.util.ArrayList;
+
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,7 +19,7 @@ public class APIclient {
         return shared;
     }
 
-    public APIclient(){
+    public APIclient() {
         this.retrofit = new Retrofit.Builder()
             .baseUrl("https://jsonplaceholder.typicode.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -25,7 +27,7 @@ public class APIclient {
         this.service = this.retrofit.create(JsonPlaceholderAPI.class);
     }
 
-    public void getTodo(Integer todo_id, Callback<JsonPlaceholderAPI> callback) {
-        this.service.getTodo(todo_id).enqueue(callback);
+    public void getTodo(Callback<ArrayList<Task>> callback) {
+        this.service.getTodo().enqueue(callback);
     }
 }

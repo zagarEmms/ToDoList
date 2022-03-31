@@ -1,10 +1,8 @@
 package com.example.todolist;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,9 +32,9 @@ public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     public void bind (Task task, MainActivity activity, int position) {
         taskItem = task;
-        task_tile.setText(taskItem.getTaskTitle());
+        task_tile.setText(taskItem.getTitle());
 
-        if (taskItem.isTaskDone()) {
+        if (taskItem.isCompleted()) {
             checkButton.setImageResource(R.drawable.check);
         }
     }

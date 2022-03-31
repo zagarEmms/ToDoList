@@ -14,6 +14,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -23,6 +24,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOnClickListener {
 
@@ -37,7 +44,7 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
         if (result != null && result.getResultCode() == RESULT_OK) {
             //start activity ror result to create a NEW task
             if (result.getData() != null && result.getData().getStringExtra("result") != null) {
-                taskArrayList.add(new Task (result.getData().getStringExtra("result")));
+                //taskArrayList.add(new Task (result.getData().getStringExtra("result")));
                 updateUI();
 
             } else if (result.getData() != null && result.getData().getStringArrayListExtra("newName") != null) {
@@ -64,22 +71,30 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
         SharedPreferences sharedPreferences = getSharedPreferences("SHARE", MODE_PRIVATE);
         Gson gson = new Gson();
         String tasksString = sharedPreferences.getString("TASKS", null);
-        Log.i("save","Getting: " + tasksString);
 
-        if (tasksString == null) {
+        //if (tasksString == null) {
 
-            taskArrayList.add(new Task(getString(R.string.task1)));
-            taskArrayList.add(new Task(getString(R.string.task2)));
-            taskArrayList.add(new Task(getString(R.string.task3)));
-            taskArrayList.add(new Task(getString(R.string.task4)));
-            taskArrayList.add(new Task(getString(R.string.task5)));
+        APIclient.getInstance().getTodo(new Callback<ArrayList<Task>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Task>> call, Response<ArrayList<Task>> response) {
+                Log.i("save","OK");
+                Log.i("save","OK" + response.body());
+                taskArrayList =  response.body();
+                updateUI();
+            }
 
-        } else {
+            @Override
+            public void onFailure(Call<ArrayList<Task>> call, Throwable t) {
+
+            }
+        });
+
+        /*} else {
 
             Type type = new TypeToken<ArrayList<Task>>() {}.getType();
             this.taskArrayList = gson.fromJson(tasksString, type);
 
-        }
+        }*/
     }
 
     private void changeActivityCreate () {
@@ -93,7 +108,7 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
     public void myOnClick(View view, int position) {
         ArrayList<String> changingTaskInfo = new ArrayList<>();
         changingTaskInfo.add(String.valueOf(position));
-        changingTaskInfo.add(taskArrayList.get(position).getTaskTitle());
+        changingTaskInfo.add(taskArrayList.get(position).getTitle());
 
         Intent intent = new Intent(this, EditActivity.class);
 
@@ -131,23 +146,11 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
             fillTasks();
             Log.i("llista","onCreate");
         } else {
-            this.taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+            //this.taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
             Log.i("llista","ELSE");
 
             //taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
         }
-
-        APIclient.getInstance().getTodo(1, new Callback<JsonPlaceholderAPI>() {
-            @Override
-            public void onResponse(Call<JsonPlaceholderAPI> call, Response<JsonPlaceholderAPI> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonPlaceholderAPI> call, Throwable t) {
-
-            }
-        });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -160,8 +163,8 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
     @Override
     protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putParcelableArrayList("ARRAYLIST", taskArrayList);
-        Log.i("llista","last " + taskArrayList.get(taskArrayList.size()-1).getTaskTitle());
+        //savedInstanceState.putParcelableArrayList("ARRAYLIST", taskArrayList);
+        Log.i("llista","last " + taskArrayList.get(taskArrayList.size()-1).getTitle());
         Log.i("llista","savedInstanceSAVED");
 
     }
@@ -177,7 +180,7 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
         super.onRestoreInstanceState(savedInstanceState);
 
         taskArrayList.clear();
-        taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+        //taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
 
         //oncreate->onSaveInstanceState->ondestroy->oncreate->onRestoreInstanceState
 
