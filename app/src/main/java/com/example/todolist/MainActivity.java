@@ -10,12 +10,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import com.example.todolist.api.APIclient;
+import com.example.todolist.model.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -25,13 +26,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 
 public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOnClickListener {
 

@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.todolist.model.Task;
+
 
 public class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
