@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Array;
@@ -30,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 
 public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOnClickListener {
 
@@ -42,9 +44,24 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
     // cbk is received as an intent with the the result from the activity
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result != null && result.getResultCode() == RESULT_OK) {
-            //start activity ror result to create a NEW task
+            //start activity ror result to create a NEW task and on the API
             if (result.getData() != null && result.getData().getStringExtra("result") != null) {
-                //taskArrayList.add(new Task (result.getData().getStringExtra("result")));
+
+                Task task = new Task(0, 0, result.getData().getStringExtra("result"), false);
+                taskArrayList.add(task);
+
+                APIclient.getInstance().createPost(new Callback<Task>() {
+                    @Override
+                    public void onResponse(Call<Task> call, Response<Task> response) {
+                        Log.i("POST","ALL WENT WELL!");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Task> call, Throwable t) {
+                        Log.i("POST","KO!");
+                    }
+                } , task);
+
                 updateUI();
 
             } else if (result.getData() != null && result.getData().getStringArrayListExtra("newName") != null) {
@@ -63,7 +80,7 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
         String tasksString = gson.toJson(taskArrayList);
         editor.putString("TASKS", tasksString);
         editor.apply();
-        Log.i("save","Saving: " + tasksString);
+        Log.i("SAVE","Saving: " + tasksString);
     }
 
     private void fillTasks () {
@@ -72,29 +89,28 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
         Gson gson = new Gson();
         String tasksString = sharedPreferences.getString("TASKS", null);
 
-        //if (tasksString == null) {
+        if (tasksString == null) {
 
-        APIclient.getInstance().getTodo(new Callback<ArrayList<Task>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Task>> call, Response<ArrayList<Task>> response) {
-                Log.i("save","OK");
-                Log.i("save","OK" + response.body());
-                taskArrayList =  response.body();
-                updateUI();
-            }
+            APIclient.getInstance().getTodo(new Callback<ArrayList<Task>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Task>> call, Response<ArrayList<Task>> response) {
+                    Log.i("GET","GET WENT WELL!" + response.body());
+                    taskArrayList =  response.body();
+                    updateUI();
+                }
 
-            @Override
-            public void onFailure(Call<ArrayList<Task>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ArrayList<Task>> call, Throwable t) {
+                    Log.i("GET","KO!");
+                }
+            });
 
-            }
-        });
-
-        /*} else {
+        } else {
 
             Type type = new TypeToken<ArrayList<Task>>() {}.getType();
             this.taskArrayList = gson.fromJson(tasksString, type);
 
-        }*/
+        }
     }
 
     private void changeActivityCreate () {
@@ -144,12 +160,12 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
 
         if (savedInstanceState == null || !savedInstanceState.containsKey("ARRAYLIST")) {
             fillTasks();
-            Log.i("llista","onCreate");
+            Log.i("LIST","onCreate");
         } else {
-            //this.taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
-            Log.i("llista","ELSE");
+            this.taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+            Log.i("LIST","ELSE");
 
-            //taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+            taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
         }
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -163,9 +179,9 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
     @Override
     protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        //savedInstanceState.putParcelableArrayList("ARRAYLIST", taskArrayList);
-        Log.i("llista","last " + taskArrayList.get(taskArrayList.size()-1).getTitle());
-        Log.i("llista","savedInstanceSAVED");
+        savedInstanceState.putParcelableArrayList("ARRAYLIST", taskArrayList);
+        Log.i("LIST","last " + taskArrayList.get(taskArrayList.size()-1).getTitle());
+        Log.i("LIST","savedInstanceSAVED");
 
     }
 
@@ -180,11 +196,11 @@ public class  MainActivity extends AppCompatActivity implements TaskAdapter.MyOn
         super.onRestoreInstanceState(savedInstanceState);
 
         taskArrayList.clear();
-        //taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
+        taskArrayList = savedInstanceState.getParcelableArrayList("ARRAYLIST");
 
         //oncreate->onSaveInstanceState->ondestroy->oncreate->onRestoreInstanceState
 
-        Log.i("llista","savedInstanceRESTORE");
+        Log.i("LIST","savedInstanceRESTORE");
     }
 
     @Override
